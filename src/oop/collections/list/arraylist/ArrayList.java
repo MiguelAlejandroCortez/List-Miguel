@@ -1,123 +1,102 @@
 package oop.collections.list.arraylist;
-import oop.collections.list.linkedList.Node;
 
 public class ArrayList {
-    private Node head;
-    private Node tail;
+    private String[] data;
     private int size;
 
+    public ArrayList(){
+        data = new String[2];
+    }
+
     public ArrayListIterator Iterator(){
-        return new ArrayListIterator(head);
+        return new ArrayListIterator(this);
     }
 
     public void addAtFront(String data){
-        Node node = new Node(data);
+        if(size == this.data.length){
+            increaseArraySize();
+        }
+        for(int i= size; i>0;i-- ){
+            this.data[i] = this.data[i-1];
+        }
 
-        node.setNext(head);
-        if(head != null)
-            head.setPrevious(node);
-        else
-            tail =node;
-
-        head=node;
+        this.data[0]=data;
         size++;
     }
 
     public void addAtTail(String data){
-        Node node = new Node(data);
-
-        node.setPrevious(tail);
-        if(tail != null)
-            tail.setNext(node);
-        else
-            head =node;
-
-        tail=node;
+        if(size == this.data.length){
+            increaseArraySize();
+        }
+        this.data[size] = data;
         size++;
     }
 
+    public void increaseArraySize(){
+        String []newArray = new String[this.data.length *2];
+
+        for(int i=0; i<data.length;i++){
+            newArray[i] =data[i];
+        }
+
+        data=newArray;
+    }
+
     public boolean remove(int indexToRemove){
-        if(indexToRemove < 0 || indexToRemove >= size){
+
+        if(indexToRemove <0 || indexToRemove >= size) {
             return false;
         }
-        if(size == 1){
-            head = null;
-            tail = null;
-        }else if(indexToRemove == 0){
-            head= head.getNext();
-            head.setPrevious(null);
-        }else if(indexToRemove == size - 1){
-            tail = tail.getPrevious();
-            tail.setNext(null);
-        }else{
-            Node iteratorNode = findNodeByIndex(indexToRemove);
-            iteratorNode.getPrevious().setNext(iteratorNode.getNext());
-            iteratorNode.getNext().setPrevious(iteratorNode.getPrevious());
+
+        for(int i= indexToRemove; i<size ; i++){
+            data[i]=data[i+1];
         }
+
         size--;
+        data[size]=null;
+
         return true;
     }
 
     public void removeAll(){
-        ArrayListIterator aux= this.Iterator();
-        while(aux.hasNext()){
-            aux.next();
-            this.remove(0);
+        for (int i=0; i<size; i++){
+            data[i]=null;
         }
+        size = 0;
     }
 
-    public void removeAllWithValue(String data){
-        int indexIterator = 0;
-        ArrayListIterator aux = this.Iterator();
-        while (aux.hasNext()){
-            if(data.equals(aux.next()))
-                this.remove(indexIterator);
-            else
-                indexIterator++;
+    public void removeAllWithValue(String value){
+        String []newArray = new String[data.length];
+        int cont = 0;
+        for(int i=0; i<size; i++){
+            if (!data[i].equals(value)) {
+                newArray[cont++] = data[i];
+            }
         }
+
+        this.data=newArray;
+        size= cont;
     }
+
     public boolean SetAt(int index, String data){
-        if(index < 0 || index >= size){
+        if(index<0 || index >= size){
             return false;
         }
-        Node node = findNodeByIndex(index);
-        node.setData(data);
+
+        this.data[index]=data;
+
         return true;
     }
 
     public String getAt(int index) {
-        if (index < 0 || index >= size) {
+        if(index<0 || index >= size){
             return null;
         }
 
-        Node node = findNodeByIndex(index);
-        if (node == null)
-        {
-            System.out.println("its null oops " + index);
-        }
-        return node.getData();
+        return this.data[index];
     }
 
     public int size(){
         return size;
     }
-
-    private Node findNodeByIndex(int index) {
-        Node iteratorNode = head;
-        if (head == null)
-        {
-            System.out.println("ERROR: head is null");
-            return null;
-        }
-        int indexIteratorNode = 0;
-        while (indexIteratorNode < index && iteratorNode != null) {
-            iteratorNode = iteratorNode.getNext();
-            if (iteratorNode == null)
-            {
-                System.out.println("ERROR: next is null");
-            }
-            indexIteratorNode++;
-        }
-        return iteratorNode;
     }
-}

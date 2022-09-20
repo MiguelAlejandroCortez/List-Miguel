@@ -1,24 +1,18 @@
 package oop.collections.list.arraylist;
 
-import oop.collections.list.linkedList.Node;
-
 public class ArrayListIterator {
-    private Node nodeIterator;
+    private ArrayList arrayList;
+    private int currentIndex=0;
 
-    public ArrayListIterator(Node head){
-        this.nodeIterator = head;
+    public ArrayListIterator(ArrayList arrayList) {
+        this.arrayList = arrayList;
     }
 
     public boolean hasNext(){
-        return nodeIterator != null;
+        return currentIndex < arrayList.size();
     }
 
     public String next() {
-        if (this.hasNext()) {
-            String data = nodeIterator.getData();
-            nodeIterator = nodeIterator.getNext();
-            return data;
-        }
-        return null;
+        return arrayList.getAt(currentIndex++);
     }
 }

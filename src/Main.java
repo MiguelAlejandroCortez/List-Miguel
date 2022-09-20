@@ -1,20 +1,27 @@
 import oop.collections.list.arraylist.ArrayList;
+import oop.collections.list.arraylist.ArrayListIterator;
+
 public class Main {
 
     public static void main(String[] args){
 
         ArrayList arrayList1= new ArrayList();
 
-        arrayList1.addAtFront("1");
-        arrayList1.addAtFront("2");
-        arrayList1.addAtFront("3");
+        arrayList1.addAtTail("1");
+        arrayList1.addAtTail("2");
+        arrayList1.addAtTail("3");
 
-//Borre lo anterior del linkedlist que habia en el main. pero esta en el documento de la tarea 6
+        arrayList1.addAtFront("uno");
+        arrayList1.addAtFront("dos");
+        arrayList1.addAtFront("tres");
 
-        int indexIterator = 0;
-        while(indexIterator < arrayList1.size()){
-            System.out.println(arrayList1.getAt(indexIterator));
-            indexIterator++;
+//Borre lo anterior del linkedlist que habia en el main. pero esta en el documento de la tarea
+        ArrayListIterator iterator= arrayList1.Iterator();
+
+        while (iterator.hasNext()){
+            String value = iterator.next();
+
+            System.out.println(value);
         }
     }
 }
