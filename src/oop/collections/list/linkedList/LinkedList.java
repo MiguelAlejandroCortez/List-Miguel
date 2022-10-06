@@ -1,10 +1,12 @@
 package oop.collections.list.linkedList;
 
-public class LinkedList {
+import oop.collections.list.List;
+
+public class LinkedList implements List {
     private Node head;
     private Node tail;
     private int size;
-    public LinkedListIterator Iterator(){
+    public LinkedListIterator getIterator(){
         return new LinkedListIterator(head); //Si no me equivoco de esta manera puedo manejar el iterator
     }                                        //en vez de crear un atributo private del iterator
 
@@ -57,24 +59,24 @@ public class LinkedList {
     }
 
     public void removeAll(){
-        LinkedListIterator aux= this.Iterator();
+        LinkedListIterator aux= this.getIterator();
         while(aux.hasNext()){
-            aux.next();
+            aux.Next();
             this.remove(0);
         }
     }
 
     public void removeAllWithValue(String data){
         int indexIterator = 0;
-        LinkedListIterator aux = this.Iterator();
+        LinkedListIterator aux = this.getIterator();
         while (aux.hasNext()){
-            if(data.equals(aux.next()))
+            if(data.equals(aux.Next()))
                 this.remove(indexIterator);
             else
                 indexIterator++;
         }
     }
-    public boolean SetAt(int index, String data){
+    public boolean setAt(int index, String data){
         if(index < 0 || index >= size){
             return false;
         }
@@ -96,7 +98,7 @@ public class LinkedList {
         return node.getData();
     }
 
-    public int size(){
+    public int getSize(){
         return size;
     }
 

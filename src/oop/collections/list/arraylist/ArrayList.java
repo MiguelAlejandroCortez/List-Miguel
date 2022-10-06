@@ -1,6 +1,8 @@
 package oop.collections.list.arraylist;
 
-public class ArrayList {
+import oop.collections.list.List;
+
+public class ArrayList implements List {
     private String[] data;
     private int size;
 
@@ -8,7 +10,7 @@ public class ArrayList {
         data = new String[2];
     }
 
-    public ArrayListIterator Iterator(){
+    public ArrayListIterator getIterator(){
         return new ArrayListIterator(this);
     }
 
@@ -78,7 +80,7 @@ public class ArrayList {
         size= cont;
     }
 
-    public boolean SetAt(int index, String data){
+    public boolean setAt(int index, String data){
         if(index<0 || index >= size){
             return false;
         }
@@ -96,7 +98,7 @@ public class ArrayList {
         return this.data[index];
     }
 
-    public int size(){
+    public int getSize(){
         return size;
     }
     }
