@@ -1,11 +1,70 @@
 package oop.collections.list.linkedList;
 
+import oop.collections.list.Iterator;
 import oop.collections.list.List;
+
+//INNER CLASS (CLASE ANIDADA)
 
 public class LinkedList implements List {
     private Node head;
     private Node tail;
     private int size;
+
+    private static class Node {
+        Node next;
+        Node previous;
+        String data;
+
+        public Node(String data) {
+            this.data = data;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+
+        public Node getPrevious() {
+            return previous;
+        }
+
+        public void setPrevious(Node previous) {
+            this.previous = previous;
+        }
+
+        public String getData() {
+            return data;
+        }
+
+        public void setData(String data) {
+            this.data = data;
+        }
+    }
+
+    private static class LinkedListIterator implements Iterator {
+        private Node aux;
+
+        public LinkedListIterator(Node head){
+            this.aux = head;
+        }
+
+        public boolean hasNext(){
+            return aux != null;
+        }
+
+        public String Next() {
+            if (this.hasNext()) {
+                String data = aux.getData();
+                aux = aux.getNext();
+                return data;
+            }
+            return null;
+        }
+    }
+
     public LinkedListIterator getIterator(){
         return new LinkedListIterator(head); //Si no me equivoco de esta manera puedo manejar el iterator
     }                                        //en vez de crear un atributo private del iterator
