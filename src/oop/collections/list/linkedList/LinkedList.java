@@ -44,10 +44,10 @@ public class LinkedList implements List {
         }
     }
 
-    private static class LinkedListIterator implements Iterator {
+    private class LinkedListIterator implements Iterator {
         private Node aux;
 
-        public LinkedListIterator(Node head){
+        public LinkedListIterator(){
             this.aux = head;
         }
 
@@ -66,7 +66,7 @@ public class LinkedList implements List {
     }
 
     public LinkedListIterator getIterator(){
-        return new LinkedListIterator(head); //Si no me equivoco de esta manera puedo manejar el iterator
+        return new LinkedListIterator(); //Si no me equivoco de esta manera puedo manejar el iterator
     }                                        //en vez de crear un atributo private del iterator
 
     public void addAtFront(String data){
